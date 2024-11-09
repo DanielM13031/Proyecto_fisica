@@ -24,11 +24,18 @@ class presa:
     def __init__(self, vel, pos):
         self.vel = vel
         self.pos = pos
+    def cinematica(self, dt):
+        self.dt = dt
+        self.pos = (self.pos[0] + self.vel[0] * self.dt, self.pos[1] + self.vel[1] * self.dt )
 #Clase depredador
 class depredador:
     def __init__(self,vel, pos):
         self.vel = vel
         self.pos = pos
+    
+    def cinematica(self, dt):
+        self.dt = dt
+        self.pos = (self.pos[0] + self.vel[0] * self.dt, self.pos[1] + self.vel[1] * self.dt )
 
 v_aleatorias_p = [(np.random.uniform(1,10),np.random.uniform(1,10)) for _ in range(numero_de_p)]
 v_aleatorias_d = [(np.random.uniform(1,10),np.random.uniform(1,10)) for _ in range(numero_de_d)]
@@ -45,5 +52,13 @@ for i, j in zip(v_aleatorias_p, pos_aleatorias_p):
 #Creacion de depredadores
 for i, j in zip(v_aleatorias_d, pos_aleatorias_d):
     depredadores.append(depredador(i, j))
+
+dt = 0.1
+#Actualizacion segun la cinematica
+for _ in range(10):
+    for presa in presas:
+        presa.cinematica(dt)
+    for depredador in depredadores:
+        depredador.actualizar_posicion(dt)
 
 solution = odeint(lotka_volterra, y0, t, args=(alpha,beta,delta,gamma))
