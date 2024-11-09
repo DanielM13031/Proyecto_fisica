@@ -43,10 +43,9 @@ v_aleatorias_d = [(np.random.uniform(1,10),np.random.uniform(1,10)) for _ in ran
 pos_aleatorias_p = [(np.random.uniform(1,50),np.random.uniform(1,50)) for _ in range(numero_de_p)]
 pos_aleatorias_d = [(np.random.uniform(1,50),np.random.uniform(1,50)) for _ in range(numero_de_d)]
 
+#Creacion de presas
 presas = []
 depredadores = []
-
-#Creacion de presas
 for i, j in zip(v_aleatorias_p, pos_aleatorias_p):
     presas.append(presa(i, j))
 #Creacion de depredadores
@@ -59,6 +58,6 @@ for _ in range(10):
     for presa in presas:
         presa.cinematica(dt)
     for depredador in depredadores:
-        depredador.actualizar_posicion(dt)
+        depredador.cinematica(dt)
 
 solution = odeint(lotka_volterra, y0, t, args=(alpha,beta,delta,gamma))
