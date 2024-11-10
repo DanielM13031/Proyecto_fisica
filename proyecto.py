@@ -68,7 +68,7 @@ class Depredador:
         self.masa = masa  # Masa
         self.f = f  # Fuerza
         self.energia = energia  # Energía
-        self.vel_max = 7  # Velocidad máxima para el depredador, normalmente mayor que la de la presa
+        self.vel_max = 7  # Velocidad máxima para el depredador
 
     def cinematica(self, dt):
         # Calcular la aceleración (a = F / m)
