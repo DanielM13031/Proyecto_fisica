@@ -4,12 +4,12 @@ import matplotlib.pyplot as plt
 from matplotlib.animation import FuncAnimation
 
 # Parámetros del sistema Lotka-Volterra
-alpha = 0.1  # Tasa de crecimiento de las presas
+alpha = 0.3  # Tasa de crecimiento de las presas
 beta = 0.02  # Tasa de depredación
 delta = 0.01 # Eficiencia de conversión de una presa a depredador
 gamma = 0.1  # Tasa de mortalidad de los depredadores 
-numero_de_p = 40  # Número de presas
-numero_de_d = 10  # Número de depredadores
+numero_de_p = 40  # Número inicial de presas
+numero_de_d = 20  # Número inicial de depredadores
 
 # Definir las ecuaciones diferenciales del modelo Lotka-Volterra
 def lotka_volterra(y, t, alpha, beta, delta, gamma):
@@ -21,6 +21,10 @@ def lotka_volterra(y, t, alpha, beta, delta, gamma):
 # Condiciones iniciales y rango de tiempo
 y0 = [numero_de_p, numero_de_d]
 t = np.linspace(0, 200, 1000)
+
+# Resolver el sistema de ecuaciones diferenciales Lotka-Volterra
+solution = odeint(lotka_volterra, y0, t, args=(alpha, beta, delta, gamma))
+presas_lotka, depredadores_lotka = solution.T
 
 # Definir la clase Presa
 class Presa:
@@ -59,42 +63,75 @@ class Depredador:
         self.pos = (self.pos[0] + self.vel[0] * dt, self.pos[1] + self.vel[1] * dt)
 
 # Creación de presas y depredadores con parámetros aleatorios
-v_aleatorias_p = [(np.random.uniform(1, 5), np.random.uniform(1, 5)) for _ in range(numero_de_p)]
-v_aleatorias_d = [(np.random.uniform(1, 5), np.random.uniform(1, 5)) for _ in range(numero_de_d)]
+def crear_presa():
+    vel = (np.random.uniform(1, 5), np.random.uniform(1, 5))
+    pos = (np.random.uniform(1, 50), np.random.uniform(1, 50))
+    masa = np.random.uniform(5, 20)
+    f = np.random.uniform(0.1, 1)
+    return Presa(vel, pos, masa, f)
 
-pos_aleatorias_p = [(np.random.uniform(1, 50), np.random.uniform(1, 50)) for _ in range(numero_de_p)]
-pos_aleatorias_d = [(np.random.uniform(1, 50), np.random.uniform(1, 50)) for _ in range(numero_de_d)]
+def crear_depredador():
+    vel = (np.random.uniform(1, 5), np.random.uniform(1, 5))
+    pos = (np.random.uniform(1, 50), np.random.uniform(1, 50))
+    masa = np.random.uniform(20, 50)
+    f = np.random.uniform(0.5, 2)
+    return Depredador(vel, pos, masa, f)
 
-masa_aleatorias_p = [np.random.uniform(5, 20) for _ in range(numero_de_p)]
-masa_aleatorias_d = [np.random.uniform(20, 50) for _ in range(numero_de_d)]
-
-fuerza_aleatorias_p = [np.random.uniform(0.1, 1) for _ in range(numero_de_p)]
-fuerza_aleatorias_d = [np.random.uniform(0.5, 2) for _ in range(numero_de_d)]
-
-presas = [Presa(v, p, m, f) for v, p, m, f in zip(v_aleatorias_p, pos_aleatorias_p, masa_aleatorias_p, fuerza_aleatorias_p)]
-depredadores = [Depredador(v, p, m, f) for v, p, m, f in zip(v_aleatorias_d, pos_aleatorias_d, masa_aleatorias_d, fuerza_aleatorias_d)]
+presas = [crear_presa() for _ in range(numero_de_p)]
+depredadores = [crear_depredador() for _ in range(numero_de_d)]
 
 # Parámetro de paso de tiempo y distancia umbral
 dt = 0.1
-distancia_umbral = 5.0  # Aumenté el umbral para dar más espacio a la persecución
+distancia_umbral = 5.0
 
 # Configuración de la visualización con Matplotlib
-fig, ax = plt.subplots()
-ax.set_xlim(0, 60)
-ax.set_ylim(0, 60)
+fig, ax = plt.subplots(2, 1, figsize=(10, 10))
 
-presas_plot, = plt.plot([], [], 'bo', markersize=5, label='Presas')
-depredadores_plot, = plt.plot([], [], 'ro', markersize=5, label='Depredadores')
-plt.legend()
+# Configuración del gráfico espacial (presas y depredadores)
+ax[0].set_xlim(0, 60)
+ax[0].set_ylim(0, 60)
+ax[0].set_title('Movimiento de Presas y Depredadores')
+presas_plot, = ax[0].plot([], [], 'bo', markersize=5, label='Presas')
+depredadores_plot, = ax[0].plot([], [], 'ro', markersize=5, label='Depredadores')
+ax[0].legend()
+
+# Configuración del gráfico Lotka-Volterra (evolución de la población)
+ax[1].set_xlim(0, 200)
+ax[1].set_ylim(0, max(max(presas_lotka), max(depredadores_lotka)) * 1.1)
+ax[1].set_title('Evolución de las Poblaciones de Presas y Depredadores')
+ax[1].set_xlabel('Tiempo')
+ax[1].set_ylabel('Población')
+ax[1].grid(True)
+presas_line, = ax[1].plot([], [], 'b-', label='Presas (Modelo Lotka-Volterra)')
+depredadores_line, = ax[1].plot([], [], 'r-', label='Depredadores (Modelo Lotka-Volterra)')
+ax[1].legend()
 
 # Función para inicializar la animación
 def init():
     presas_plot.set_data([], [])
     depredadores_plot.set_data([], [])
-    return presas_plot, depredadores_plot
+    presas_line.set_data([], [])
+    depredadores_line.set_data([], [])
+    return presas_plot, depredadores_plot, presas_line, depredadores_line
 
 # Función para actualizar cada cuadro de la animación
 def update(frame):
+    # Actualizar el número de presas y depredadores según el modelo Lotka-Volterra
+    cantidad_presas = int(presas_lotka[frame])
+    cantidad_depredadores = int(depredadores_lotka[frame])
+
+    # Actualizar la cantidad de presas en la simulación
+    while len(presas) < cantidad_presas:
+        presas.append(crear_presa())
+    while len(presas) > cantidad_presas:
+        presas.pop()
+
+    # Actualizar la cantidad de depredadores en la simulación
+    while len(depredadores) < cantidad_depredadores:
+        depredadores.append(crear_depredador())
+    while len(depredadores) > cantidad_depredadores:
+        depredadores.pop()
+
     # Actualizar la posición de todas las presas
     for presa in presas:
         presa.cinematica(dt)
@@ -111,11 +148,9 @@ def update(frame):
 
             # Si la distancia es menor que el umbral, el depredador persigue a la presa
             if distancia < distancia_umbral:
-                direccion_persecucion = (pos_presa - pos_depredador) / distancia  # Vector unitario hacia la presa
+                direccion_persecucion = (pos_presa - pos_depredador) / distancia
                 fuerza_aplicada = depredador.f * direccion_persecucion  # Fuerza aplicada hacia la presa
-
-                # Calcular la aceleración resultante (a = F / m)
-                aceleracion = fuerza_aplicada / depredador.masa
+                aceleracion = fuerza_aplicada / depredador.masa  # a = F / m
 
                 # Actualizar la velocidad del depredador
                 depredador.vel = (
@@ -130,29 +165,19 @@ def update(frame):
     depredadores_x = [depredador.pos[0] for depredador in depredadores]
     depredadores_y = [depredador.pos[1] for depredador in depredadores]
 
-    # Actualizar los datos de la gráfica
+    # Actualizar los datos de la gráfica espacial
     presas_plot.set_data(presas_x, presas_y)
     depredadores_plot.set_data(depredadores_x, depredadores_y)
 
-    return presas_plot, depredadores_plot
+    # Actualizar la gráfica de las poblaciones (Lotka-Volterra)
+    presas_line.set_data(t[:frame], presas_lotka[:frame])
+    depredadores_line.set_data(t[:frame], depredadores_lotka[:frame])
+
+    return presas_plot, depredadores_plot, presas_line, depredadores_line
 
 # Crear la animación
-ani = FuncAnimation(fig, update, frames=range(100), init_func=init, blit=True, interval=100)
+ani = FuncAnimation(fig, update, frames=len(t), init_func=init, blit=True, interval=100)
 
 # Mostrar la animación
-plt.show()
-
-# Resolver el sistema de ecuaciones diferenciales Lotka-Volterra
-solution = odeint(lotka_volterra, y0, t, args=(alpha, beta, delta, gamma))
-presas, depredadores = solution.T
-
-# Graficar la evolución de las poblaciones de presas y depredadores
-plt.figure(figsize=(10, 6))
-plt.plot(t, presas, label='Presas', color='b')
-plt.plot(t, depredadores, label='Depredadores', color='r')
-plt.xlabel('Tiempo')
-plt.ylabel('Población')
-plt.title('Evolución de las poblaciones de presas y depredadores')
-plt.legend()
-plt.grid(True)
+plt.tight_layout()
 plt.show()
