@@ -25,7 +25,8 @@ t = np.linspace(0, 200, 1000)
 # Resolver el sistema de ecuaciones diferenciales Lotka-Volterra
 solution = odeint(lotka_volterra, y0, t, args=(alpha, beta, delta, gamma))
 presas_lotka, depredadores_lotka = solution.T
-
+print(len(presas_lotka))
+print(len(t))
 # Definir la clase Presa
 class Presa:
     def __init__(self, vel, pos, masa, f, energia):
@@ -222,8 +223,9 @@ def update(frame):
     return presas_plot, depredadores_plot, presas_line, depredadores_line
 
 # Crear la animación
-ani = FuncAnimation(fig, update, frames=len(t), init_func=init, blit=True, interval=100)
+"""ani = FuncAnimation(fig, update, frames=len(t), init_func=init, blit=True, interval=100)
 
 # Mostrar la animación
 plt.tight_layout()
 plt.show()
+"""
