@@ -1,0 +1,8 @@
+# This file is used internally by FFMPEG.
+file 'file:C:/Users/USUARIO/Documents/WTF IS PROGRAMMING 2.0/UR CLASES/Proyecto_fisica/media/videos/animations/720p30/partial_movie_files/LotkaVolterra/2016333726_653147770_223132457.mp4'
+file 'file:C:/Users/USUARIO/Documents/WTF IS PROGRAMMING 2.0/UR CLASES/Proyecto_fisica/media/videos/animations/720p30/partial_movie_files/LotkaVolterra/543634251_2475379470_2042511513.mp4'
+file 'file:C:/Users/USUARIO/Documents/WTF IS PROGRAMMING 2.0/UR CLASES/Proyecto_fisica/media/videos/animations/720p30/partial_movie_files/LotkaVolterra/543634251_1969726410_1231051280.mp4'
+file 'file:C:/Users/USUARIO/Documents/WTF IS PROGRAMMING 2.0/UR CLASES/Proyecto_fisica/media/videos/animations/720p30/partial_movie_files/LotkaVolterra/543634251_1959358871_3356814986.mp4'
+file 'file:C:/Users/USUARIO/Documents/WTF IS PROGRAMMING 2.0/UR CLASES/Proyecto_fisica/media/videos/animations/720p30/partial_movie_files/LotkaVolterra/543634251_185032619_3321999269.mp4'
+file 'file:C:/Users/USUARIO/Documents/WTF IS PROGRAMMING 2.0/UR CLASES/Proyecto_fisica/media/videos/animations/720p30/partial_movie_files/LotkaVolterra/543634251_1141282389_2278594010.mp4'
+file 'file:C:/Users/USUARIO/Documents/WTF IS PROGRAMMING 2.0/UR CLASES/Proyecto_fisica/media/videos/animations/720p30/partial_movie_files/LotkaVolterra/543634251_4184049581_2045326439.mp4'

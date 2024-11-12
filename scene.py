@@ -10,7 +10,6 @@ class LineChartExample(Scene):
             np.array([x, y, 0]) 
             for x, y in enumerate(data)
         ]
-
         # Convert points to a line plot
         line_plot = VMobject()
         line_plot.set_points_as_corners(points)
@@ -29,6 +28,7 @@ class LineChartExample(Scene):
         # Add labels to the axes
         axes_labels = axes.get_axis_labels(x_label="x", y_label="y")
 
+        print("xd")
         # Display the plot and axes on the scene
         self.play(Create(axes), Create(axes_labels))
         self.play(Create(line_plot))
