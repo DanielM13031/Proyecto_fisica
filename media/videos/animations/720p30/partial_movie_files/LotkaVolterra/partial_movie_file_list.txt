@@ -7,5 +7,6 @@ file 'file:C:/Users/USUARIO/Documents/WTF IS PROGRAMMING 2.0/UR CLASES/Proyecto_
 file 'file:C:/Users/USUARIO/Documents/WTF IS PROGRAMMING 2.0/UR CLASES/Proyecto_fisica/media/videos/animations/720p30/partial_movie_files/LotkaVolterra/543634251_1141282389_3256690166.mp4'
 file 'file:C:/Users/USUARIO/Documents/WTF IS PROGRAMMING 2.0/UR CLASES/Proyecto_fisica/media/videos/animations/720p30/partial_movie_files/LotkaVolterra/543634251_3216852245_1506839725.mp4'
 file 'file:C:/Users/USUARIO/Documents/WTF IS PROGRAMMING 2.0/UR CLASES/Proyecto_fisica/media/videos/animations/720p30/partial_movie_files/LotkaVolterra/543634251_1141282389_1818167338.mp4'
-file 'file:C:/Users/USUARIO/Documents/WTF IS PROGRAMMING 2.0/UR CLASES/Proyecto_fisica/media/videos/animations/720p30/partial_movie_files/LotkaVolterra/543634251_3522282654_3764040862.mp4'
-file 'file:C:/Users/USUARIO/Documents/WTF IS PROGRAMMING 2.0/UR CLASES/Proyecto_fisica/media/videos/animations/720p30/partial_movie_files/LotkaVolterra/543634251_1959358871_3207502566.mp4'
+file 'file:C:/Users/USUARIO/Documents/WTF IS PROGRAMMING 2.0/UR CLASES/Proyecto_fisica/media/videos/animations/720p30/partial_movie_files/LotkaVolterra/543634251_815277752_2610370452.mp4'
+file 'file:C:/Users/USUARIO/Documents/WTF IS PROGRAMMING 2.0/UR CLASES/Proyecto_fisica/media/videos/animations/720p30/partial_movie_files/LotkaVolterra/543634251_2357406764_3921018901.mp4'
+file 'file:C:/Users/USUARIO/Documents/WTF IS PROGRAMMING 2.0/UR CLASES/Proyecto_fisica/media/videos/animations/720p30/partial_movie_files/LotkaVolterra/543634251_1959358871_247845917.mp4'
