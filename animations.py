@@ -1,13 +1,13 @@
 from manim import *
-from proyecto import solution, t
-
+from proyecto import solution, t, presas, depredadores
+import proyecto as p
 template = TexTemplate()
 template.add_to_preamble(r"\usepackage{amsmath}")
 
 # Set the custom template in the config
 config.tex_template = template
-
-
+dt = 0.1
+presas_lotka, depredadores_lotka = solution.T
 
 class LotkaVolterra1(Scene):
     def construct(self):
@@ -68,6 +68,7 @@ class Equations(Scene):
         self.wait(1)
 
         #self.play(FadeOut(eq_desc,eq_depred,eq_presas,flecha_depredadores,flecha_presa))
+
 class Intermediate(Scene):
     def construct(self):
         eq_presas = MathTex(r"\frac{dx}{dt} = \alpha x - \beta xy")
@@ -92,10 +93,6 @@ class Intermediate(Scene):
         eq_desc = VGroup(presas,depredadores)    
         self.add(eq_presas,eq_depred, eq_desc, flecha_depredadores, flecha_presa)
         self.play(FadeOut(texto),FadeOut(flecha_depredadores),FadeOut(flecha_presa))
-
-
-
-
 
 class Equations2(Scene):
     def construct(self):
@@ -135,8 +132,7 @@ class Equations2(Scene):
         descriptions.shift(UP * 1)
        
         self.play(Write(descriptions), run_time = 5)
-
-           
+  
 class Equations3(Scene):
     def construct(self):
         eq_presas = MathTex(r"\frac{dx}{dt} = \alpha x - \beta xy")
@@ -264,3 +260,139 @@ class Curves(MovingCameraScene):
         self.play(FadeOut(title))
         self.play(Write(leyenda_p),Write(leyenda_d))
         self.play(Create(presas_curve), Create(depredadores_curve), run_time = 20)
+
+class SpaceSimulation(Scene):
+    def construct(self):
+        background = NumberPlane(
+            x_range = [-10,10,1],
+            y_range = [-10,10,1],
+            background_line_style={
+                "stroke_opacity":0.3
+            },
+            axis_config={
+                "include_numbers":True
+            }
+        )
+        #self.add(background)
+
+        edges = Square(side_length= 5)
+        grid = NumberPlane(
+            x_range= [0,100,20],
+            y_range= [0,100,20],
+            x_length= 5,
+            y_length= 5,
+            axis_config = {
+                "include_numbers":True,
+                "font_size":24
+            },
+            background_line_style={
+                "stroke_color": BLUE,
+                "stroke_width": 1,
+                "stroke_opacity": 0,
+            }
+        )
+        #grid.shift(ORIGIN + grid.get_center())
+        #grid.move_to(edges.get_center())
+        #grid.shift(RIGHT * 0.4)
+        """grid.x_axis.set_opacity(0)  # Entire x-axis
+        grid.y_axis.set_opacity(0)"""
+        #edges.move_to(grid.get_center())
+        grid.shift(ORIGIN - grid.get_center())
+    
+        # Create a border around the grid
+        edges.move_to(grid.get_center())
+        edges.shift(LEFT*0.2)
+        edges.shift(UP*0.12)
+
+        
+        #Duración de la simulación espacial
+        total_duration = 20
+
+        #Creación de puntos 
+        presas_dots = VGroup()
+        depredadores_dots = VGroup()
+
+        for presa in presas:
+            dot = Dot(color = BLUE,radius = 0.05).move_to(grid.c2p(presa.pos[0],presa.pos[1]))
+            presas_dots.add(dot)
+        
+        for depredador in depredadores:
+            dot = Dot(color = RED, radius = 0.05).move_to(grid.c2p(depredador.pos[0],depredador.pos[1]))
+            depredadores_dots.add(dot)
+        
+        Space = VGroup(edges,grid,presas_dots,depredadores_dots)
+        Space.shift(LEFT * 2)
+        self.play(Create(Space))
+        """for dot in presas_dots:
+            self.play(FadeIn(dot), run_time = 0.1)
+        for dot in depredadores_dots:
+            self.play(FadeIn(dot), run_time = 0.1)"""
+        #self.play(FadeIn(presas_dots))
+        #self.play(FadeIn(depredadores_dots))
+        self.wait(2)
+
+
+        #Definición función de actualización de puntos
+        def update(frame):
+            global t, presas, depredadores, cantidad_presas, cantidad_depredadores
+            presas[:] = [presa for presa in presas if presa.energia > 0]
+            depredadores[:] = [depredador for depredador in depredadores if depredador.energia > 0]
+
+            cantidad_presas = int(presas_lotka[frame])
+            cantidad_depredadores = int(depredadores_lotka[frame])
+
+            #Ajustar la cantidad de presas y depredadores (viven o mueren)
+            while len(presas) < cantidad_presas:
+                presas.append(p.crear_presa())
+            while len(presas) > cantidad_presas:
+                presas.pop()
+
+            while len(depredadores) < cantidad_depredadores:
+                depredadores.append(p.crear_depredador())
+            while len(depredadores) > cantidad_depredadores:
+                depredadores.pop()
+
+            for presa in presas:
+                presa.cinematica(dt)
+            
+            presas_capturadas = [] 
+            for depredador in depredadores:
+                depredador.cinematica(dt)
+
+                for presa in presas:
+                    pos_presa = np.array(presa.pos)
+                    pos_depredador = np.array(depredador.pos)
+                    distancia = np.linalg.norm(pos_presa - pos_depredador)
+
+                    if distancia < p.distancia_captura:
+                        presas_capturadas.append(presa)
+                        depredador.energia += 20
+                    
+                    elif distancia < p.distancia_umbral:
+                        direccion_presecucion = (pos_presa - pos_depredador) / distancia
+                        fuerza_aplicada = depredador.f * direccion_presecucion
+                        aceleracion = fuerza_aplicada / depredador.masa
+
+                        #Actualizar movimiento del depredador
+                        depredador.vel = (
+                            depredador.vel[0] + aceleracion[0] * dt,
+                            depredador.vel[1] + aceleracion[1] * dt
+                        )
+            #Eliminar las presas cazadas
+            for presa in presas_capturadas:
+                if presa in presas:
+                    presas.remove(presa)
+            
+            presas_coords = [presa.pos for presa in presas]
+            depredadores_coords = [depredador.pos for depredador in depredadores]
+
+            return presas_coords, depredadores_coords
+
+        update(0)
+        #Iniciar Texto de contador
+        contador_p = Text(f"Cantidad de Presas: {cantidad_presas}", font_size= 24)
+        contador_d = Text(f"Cantidad de Depredadores: {cantidad_depredadores}", font_size= 24)
+        contador_d.next_to(contador_p,DOWN)
+        contadores = VGroup(contador_p,contador_d)
+        contadores.shift(RIGHT * 4)
+        self.play(FadeIn(contadores))

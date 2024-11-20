@@ -155,7 +155,7 @@ def update(frame):
     # Actualizar el número de presas y depredadores según el modelo Lotka-Volterra
     cantidad_presas = int(presas_lotka[frame])
     cantidad_depredadores = int(depredadores_lotka[frame])
-
+    
     # Ajustar la cantidad de presas en la simulación
     while len(presas) < cantidad_presas:
         presas.append(crear_presa())
