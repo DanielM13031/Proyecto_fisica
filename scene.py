@@ -33,3 +33,23 @@ class LineChartExample(Scene):
         self.play(Create(axes), Create(axes_labels))
         self.play(Create(line_plot))
         self.wait(2)
+
+class ShowCodeExample(Scene):
+    def construct(self):
+        # Define the code you want to display as a string
+        code = '''def greet(name):
+    return f"Hello, {name}!"'''
+
+        # Create a Code object to render the code
+        code_display = Code(
+            code=code,           # The code to display
+            language="Python",   # Programming language
+            font="Courier New",  # Font style
+            line_spacing=0.5,    # Spacing between lines
+            background="window" # Background style
+            #theme="monokai",     # Code theme
+        )
+
+        # Center the code display on the screen
+        self.play(Write(code_display))
+        self.wait(2)

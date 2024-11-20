@@ -389,6 +389,9 @@ class SpaceSimulation(Scene):
             return presas_coords, depredadores_coords
 
         update(0)
+        #presas_dots.add_updater(update[0])
+        #depredadores_dots.add_updater(update[1])
+
         #Iniciar Texto de contador
         contador_p = Text(f"Cantidad de Presas: {cantidad_presas}", font_size= 24)
         contador_d = Text(f"Cantidad de Depredadores: {cantidad_depredadores}", font_size= 24)
@@ -396,3 +399,77 @@ class SpaceSimulation(Scene):
         contadores = VGroup(contador_p,contador_d)
         contadores.shift(RIGHT * 4)
         self.play(FadeIn(contadores))
+        print(np.shape(presas))
+        print(np.shape(depredadores))
+        self.wait(total_duration)
+
+        for frame in range(int(len(t)/10)):  # Assuming len(t) gives the number of frames
+            # Get updated positions for presas and depredadores
+            presas_coords, depredadores_coords = update(frame)
+
+            # Update positions of the presas and depredadores dots
+            for i, dot in enumerate(presas_dots):
+                if i < len(presas_coords):
+                    dot.move_to(grid.c2p(presas_coords[i][0], presas_coords[i][1]))
+
+            for i, dot in enumerate(depredadores_dots):
+                if i < len(depredadores_coords):
+                    dot.move_to(grid.c2p(depredadores_coords[i][0], depredadores_coords[i][1]))
+
+            # Remove any excess dots if there are fewer objects than dots
+            for i in range(len(presas_dots) - len(presas_coords)):
+                self.remove(presas_dots[i])
+
+            for i in range(len(depredadores_dots) - len(depredadores_coords)):
+                self.remove(depredadores_dots[i])
+
+            # Wait for a short time to display each frame's update
+            self.wait(0.1)
+
+
+class ShowCode1(Scene):
+    def construct(self):
+        code = """class Presa:
+        def __init__(self, vel, pos, masa, f, energia):
+            self.vel = vel  # Velocidad (vx, vy)
+            self.pos = pos  # Posición (x, y)
+            self.masa = masa  # Masa
+            self.f = f  # Fuerza
+            self.energia = energia  # Energía
+            self.vel_max = 5  # Velocidad máxima
+
+        def cinematica(self, dt):
+            # Movimiento aleatorio para evitar un patrón muy rígido
+            ruido = (np.random.uniform(-1, 1), np.random.uniform(-1, 1))
+            self.vel = (self.vel[0] + ruido[0] * 0.1, self.vel[1] + ruido[1] * 0.1)
+
+            # Limitar la velocidad para que no sea demasiado alta
+            velocidad = np.linalg.norm(self.vel)
+            if velocidad > self.vel_max:
+                factor = self.vel_max / velocidad
+                self.vel = (self.vel[0] * factor, self.vel[1] * factor)
+
+            # Calcular la aceleración (a = F / m)
+            aceleracion = (self.f / self.masa, self.f / self.masa)
+
+            # Actualizar la velocidad: v = v + a * dt
+            self.vel = (self.vel[0] + aceleracion[0] * dt, self.vel[1] + aceleracion[1] * dt)
+
+            # Actualizar la posición: pos = pos + v * dt
+            self.pos = (self.pos[0] + self.vel[0] * dt, self.pos[1] + self.vel[1] * dt)
+
+            # Reducir energía según la velocidad
+            gasto_energia = 0.01 * (self.vel[0]**2 + self.vel[1]**2) * dt
+            self.energia -= gasto_energia
+    """
+        code_display = Code(
+                code=code,           # The code to display
+                language="Python",   # Programming language
+                font="Courier New",  # Font style
+                line_spacing=0.5,    # Spacing between lines
+                background="window" # Background style
+                #theme="monokai",
+        )
+        code_display.scale(0.5)
+        self.play(Write(code_display))
+        self.wait(2)

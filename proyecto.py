@@ -223,9 +223,8 @@ def update(frame):
     return presas_plot, depredadores_plot, presas_line, depredadores_line
 
 # Crear la animación
-"""ani = FuncAnimation(fig, update, frames=len(t), init_func=init, blit=True, interval=100)
-
+ani = FuncAnimation(fig, update, frames=len(t), init_func=init, blit=True, interval=100)
+#ani.save('lotka_volterra_simulation.mp4', writer='ffmpeg', fps=30)
 # Mostrar la animación
-plt.tight_layout()
-plt.show()
-"""
+"""plt.tight_layout()
+plt.show()"""
