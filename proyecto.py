@@ -25,7 +25,8 @@ t = np.linspace(0, 200, 1000)
 # Resolver el sistema de ecuaciones diferenciales Lotka-Volterra
 solution = odeint(lotka_volterra, y0, t, args=(alpha, beta, delta, gamma))
 presas_lotka, depredadores_lotka = solution.T
-
+print(len(presas_lotka))
+print(len(t))
 # Definir la clase Presa
 class Presa:
     def __init__(self, vel, pos, masa, f, energia):
@@ -154,7 +155,7 @@ def update(frame):
     # Actualizar el número de presas y depredadores según el modelo Lotka-Volterra
     cantidad_presas = int(presas_lotka[frame])
     cantidad_depredadores = int(depredadores_lotka[frame])
-
+    
     # Ajustar la cantidad de presas en la simulación
     while len(presas) < cantidad_presas:
         presas.append(crear_presa())
@@ -223,7 +224,7 @@ def update(frame):
 
 # Crear la animación
 ani = FuncAnimation(fig, update, frames=len(t), init_func=init, blit=True, interval=100)
-
+#ani.save('lotka_volterra_simulation.mp4', writer='ffmpeg', fps=30)
 # Mostrar la animación
-plt.tight_layout()
-plt.show()
+"""plt.tight_layout()
+plt.show()"""

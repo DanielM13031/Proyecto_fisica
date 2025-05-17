@@ -1,0 +1,12 @@
+# This file is used internally by FFMPEG.
+file 'file:C:/Users/USUARIO/Documents/WTF IS PROGRAMMING 2.0/UR CLASES/Proyecto_fisica/media/videos/animations/720p30/partial_movie_files/LotkaVolterra/2016333726_653147770_223132457.mp4'
+file 'file:C:/Users/USUARIO/Documents/WTF IS PROGRAMMING 2.0/UR CLASES/Proyecto_fisica/media/videos/animations/720p30/partial_movie_files/LotkaVolterra/543634251_2475379470_2042511513.mp4'
+file 'file:C:/Users/USUARIO/Documents/WTF IS PROGRAMMING 2.0/UR CLASES/Proyecto_fisica/media/videos/animations/720p30/partial_movie_files/LotkaVolterra/543634251_1969726410_1231051280.mp4'
+file 'file:C:/Users/USUARIO/Documents/WTF IS PROGRAMMING 2.0/UR CLASES/Proyecto_fisica/media/videos/animations/720p30/partial_movie_files/LotkaVolterra/543634251_1959358871_3356814986.mp4'
+file 'file:C:/Users/USUARIO/Documents/WTF IS PROGRAMMING 2.0/UR CLASES/Proyecto_fisica/media/videos/animations/720p30/partial_movie_files/LotkaVolterra/543634251_2756159556_3321999269.mp4'
+file 'file:C:/Users/USUARIO/Documents/WTF IS PROGRAMMING 2.0/UR CLASES/Proyecto_fisica/media/videos/animations/720p30/partial_movie_files/LotkaVolterra/543634251_1141282389_3256690166.mp4'
+file 'file:C:/Users/USUARIO/Documents/WTF IS PROGRAMMING 2.0/UR CLASES/Proyecto_fisica/media/videos/animations/720p30/partial_movie_files/LotkaVolterra/543634251_3216852245_1506839725.mp4'
+file 'file:C:/Users/USUARIO/Documents/WTF IS PROGRAMMING 2.0/UR CLASES/Proyecto_fisica/media/videos/animations/720p30/partial_movie_files/LotkaVolterra/543634251_1141282389_1818167338.mp4'
+file 'file:C:/Users/USUARIO/Documents/WTF IS PROGRAMMING 2.0/UR CLASES/Proyecto_fisica/media/videos/animations/720p30/partial_movie_files/LotkaVolterra/543634251_815277752_2610370452.mp4'
+file 'file:C:/Users/USUARIO/Documents/WTF IS PROGRAMMING 2.0/UR CLASES/Proyecto_fisica/media/videos/animations/720p30/partial_movie_files/LotkaVolterra/543634251_2357406764_3921018901.mp4'
+file 'file:C:/Users/USUARIO/Documents/WTF IS PROGRAMMING 2.0/UR CLASES/Proyecto_fisica/media/videos/animations/720p30/partial_movie_files/LotkaVolterra/543634251_1959358871_247845917.mp4'

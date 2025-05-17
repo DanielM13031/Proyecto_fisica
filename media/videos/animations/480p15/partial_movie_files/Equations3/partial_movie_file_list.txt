@@ -1,0 +1,2 @@
+# This file is used internally by FFMPEG.
+file 'file:C:/Users/USUARIO/Documents/WTF IS PROGRAMMING 2.0/UR CLASES/Proyecto_fisica/media/videos/animations/480p15/partial_movie_files/Equations3/624642324_1387984082_959248016.mp4'

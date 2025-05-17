@@ -1,0 +1,12 @@
+# This file is used internally by FFMPEG.
+file 'file:C:/Users/USUARIO/Documents/WTF IS PROGRAMMING 2.0/UR CLASES/Proyecto_fisica/media/videos/animations/480p15/partial_movie_files/Curves/2015543152_384383379_1183375358.mp4'
+file 'file:C:/Users/USUARIO/Documents/WTF IS PROGRAMMING 2.0/UR CLASES/Proyecto_fisica/media/videos/animations/480p15/partial_movie_files/Curves/497158484_3149632501_1183375358.mp4'
+file 'file:C:/Users/USUARIO/Documents/WTF IS PROGRAMMING 2.0/UR CLASES/Proyecto_fisica/media/videos/animations/480p15/partial_movie_files/Curves/497158484_3332563892_3735802106.mp4'
+file 'file:C:/Users/USUARIO/Documents/WTF IS PROGRAMMING 2.0/UR CLASES/Proyecto_fisica/media/videos/animations/480p15/partial_movie_files/Curves/497158484_634214833_432513651.mp4'
+file 'file:C:/Users/USUARIO/Documents/WTF IS PROGRAMMING 2.0/UR CLASES/Proyecto_fisica/media/videos/animations/480p15/partial_movie_files/Curves/497158484_1165985053_2754104338.mp4'
+file 'file:C:/Users/USUARIO/Documents/WTF IS PROGRAMMING 2.0/UR CLASES/Proyecto_fisica/media/videos/animations/480p15/partial_movie_files/Curves/497158484_2368809751_1916425539.mp4'
+file 'file:C:/Users/USUARIO/Documents/WTF IS PROGRAMMING 2.0/UR CLASES/Proyecto_fisica/media/videos/animations/480p15/partial_movie_files/Curves/497158484_1571168271_2281246967.mp4'
+file 'file:C:/Users/USUARIO/Documents/WTF IS PROGRAMMING 2.0/UR CLASES/Proyecto_fisica/media/videos/animations/480p15/partial_movie_files/Curves/497158484_830488512_2957428617.mp4'
+file 'file:C:/Users/USUARIO/Documents/WTF IS PROGRAMMING 2.0/UR CLASES/Proyecto_fisica/media/videos/animations/480p15/partial_movie_files/Curves/497158484_661162684_1258823083.mp4'
+file 'file:C:/Users/USUARIO/Documents/WTF IS PROGRAMMING 2.0/UR CLASES/Proyecto_fisica/media/videos/animations/480p15/partial_movie_files/Curves/497158484_399021448_4184725362.mp4'
+file 'file:C:/Users/USUARIO/Documents/WTF IS PROGRAMMING 2.0/UR CLASES/Proyecto_fisica/media/videos/animations/480p15/partial_movie_files/Curves/497158484_2222580605_2642981933.mp4'
