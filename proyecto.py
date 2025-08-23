@@ -3,13 +3,12 @@ from scipy.integrate import odeint
 import matplotlib.pyplot as plt
 from matplotlib.animation import FuncAnimation
 
-# Parámetros del sistema Lotka-Volterra
-alpha = 0.3  # Tasa de crecimiento de las presas
-beta = 0.02  # Tasa de depredación
-delta = 0.01 # Eficiencia de conversión de una presa a depredador
-gamma = 0.1  # Tasa de mortalidad de los depredadores 
-numero_de_p = 40  # Número inicial de presas
-numero_de_d = 20  # Número inicial de depredadores
+alpha = 0.5    # tasa de crecimiento natural de los ciervos
+beta = 0.025   # tasa con la que los zorros cazan ciervos
+delta = 0.01   # eficiencia con que un ciervo cazado se convierte en un nuevo zorro
+gamma = 0.2    # tasa de muerte de zorros
+numero_de_p = 60   # 60 ciervos al inicio
+numero_de_d = 15   # 15 zorros al inicio
 
 # Definir las ecuaciones diferenciales del modelo Lotka-Volterra
 def lotka_volterra(y, t, alpha, beta, delta, gamma):
@@ -224,7 +223,7 @@ def update(frame):
 
 # Crear la animación
 ani = FuncAnimation(fig, update, frames=len(t), init_func=init, blit=True, interval=100)
-#ani.save('lotka_volterra_simulation.mp4', writer='ffmpeg', fps=30)
+ani.save('lotka_volterra_simulation.mp4', writer='ffmpeg', fps=30)
 # Mostrar la animación
-"""plt.tight_layout()
-plt.show()"""
+plt.tight_layout()
+plt.show()
